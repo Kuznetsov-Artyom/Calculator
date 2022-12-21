@@ -5,6 +5,7 @@
 // Проверяет лексему на тип CONST
 bool IsConst(std::string token)
 {
+	if (token.empty()) return false;
 	if (token.front() == '.' || token.back() == '.') return false;
 	if (token.size() > 1 && token[0] == '0' && token[1] != '.') return false;
 
@@ -28,6 +29,7 @@ bool IsConst(std::string token)
 // Проверяет лексему на тип VARIABLE
 bool IsVariable(std::string token)
 {
+	if (token.empty()) return false;
 	if (isdigit(token[0])) return false;
 
 	for (const auto& sym : token)
@@ -39,6 +41,7 @@ bool IsVariable(std::string token)
 // Проверяет лексему на тип OPERATION
 bool IsOperation(std::string token)
 {
+	if (token.empty()) return false;
 	if (token.size() > 1) return false;
 
 	char sym = token[0];
@@ -51,6 +54,7 @@ bool IsOperation(std::string token)
 // Проверяет лексему на тип OPEN_BRACKET
 bool IsOpenBracket(std::string token)
 {
+	if (token.empty()) return false;
 	if (token.size() > 1) return false;
 
 	return token[0] == '(';
@@ -59,6 +63,7 @@ bool IsOpenBracket(std::string token)
 // Проверяет лексему на тип CLOSE_BRACKET
 bool IsCloseBracket(std::string token)
 {
+	if (token.empty()) return false;
 	if (token.size() > 1) return false;
 
 	return token[0] == ')';

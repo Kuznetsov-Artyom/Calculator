@@ -15,8 +15,8 @@ enum class CodeError
 	INVALID_PARENTHESES = -3,
 	NO_OPERATOR = -4,
 	NO_OPERAND = -5,
-	BINARY_ON_UNARY = -6,
-	EMPTY_PARENTHESES = -7
+	EMPTY_PARENTHESES = -6,
+	ZERO_DIVISION = -7,
 };
 
 // Класс исключений для класса Record

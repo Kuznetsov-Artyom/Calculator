@@ -180,13 +180,22 @@ namespace Calculator {
 			// 
 			// dataGridViewTableVar
 			// 
+			this->dataGridViewTableVar->AllowUserToAddRows = false;
+			this->dataGridViewTableVar->AllowUserToDeleteRows = false;
+			this->dataGridViewTableVar->AllowUserToResizeColumns = false;
+			this->dataGridViewTableVar->AllowUserToResizeRows = false;
+			this->dataGridViewTableVar->BackgroundColor = System::Drawing::SystemColors::ControlLightLight;
 			this->dataGridViewTableVar->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridViewTableVar->Location = System::Drawing::Point(24, 26);
+			this->dataGridViewTableVar->ColumnHeadersVisible = false;
+			this->dataGridViewTableVar->Location = System::Drawing::Point(22, 26);
 			this->dataGridViewTableVar->Name = L"dataGridViewTableVar";
+			this->dataGridViewTableVar->RowHeadersVisible = false;
 			this->dataGridViewTableVar->RowHeadersWidth = 51;
 			this->dataGridViewTableVar->RowTemplate->Height = 24;
-			this->dataGridViewTableVar->Size = System::Drawing::Size(167, 364);
+			this->dataGridViewTableVar->ScrollBars = System::Windows::Forms::ScrollBars::None;
+			this->dataGridViewTableVar->Size = System::Drawing::Size(222, 364);
 			this->dataGridViewTableVar->TabIndex = 6;
+			this->dataGridViewTableVar->TabStop = false;
 			// 
 			// buttonCalculate
 			// 
@@ -240,7 +249,7 @@ namespace Calculator {
 				static_cast<System::Byte>(204)));
 			this->groupBoxTableVar->Location = System::Drawing::Point(626, 14);
 			this->groupBoxTableVar->Name = L"groupBoxTableVar";
-			this->groupBoxTableVar->Size = System::Drawing::Size(215, 411);
+			this->groupBoxTableVar->Size = System::Drawing::Size(266, 411);
 			this->groupBoxTableVar->TabIndex = 9;
 			this->groupBoxTableVar->TabStop = false;
 			this->groupBoxTableVar->Text = L"Таблица переменных";
@@ -278,7 +287,7 @@ namespace Calculator {
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->ClientSize = System::Drawing::Size(863, 445);
+			this->ClientSize = System::Drawing::Size(909, 445);
 			this->Controls->Add(this->groupBoxResults);
 			this->Controls->Add(this->groupBoxTableVar);
 			this->Controls->Add(this->groupBoxWorkSpace);
@@ -303,6 +312,12 @@ private: System::Void textBoxSrcStr_TextChanged(System::Object^ sender, System::
 private: System::Void buttonGenTable_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void buttonCalculate_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void buttonClear_Click(System::Object^ sender, System::EventArgs^ e);
+
+
+private: System::Void clearTable();
+private: System::Void clearPolStr();
+private: System::Void clearSrcStr();
+private: System::Void clearResult();
 
 };
 }

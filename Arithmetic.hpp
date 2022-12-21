@@ -7,6 +7,7 @@
 #include <map>
 #include <stack>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -16,8 +17,8 @@ private:
 	Record tokens;
 	std::map<std::string, double> tableVariable;
 	std::vector<Token> postForm;
-	std::string polStr;
-	double result;
+	std::string polStr{};
+	double result{};
 
 private:
 	// +-+-+-+-+-+-+-+-+ Приватные методы +-+-+-+-+-+-+-+-+

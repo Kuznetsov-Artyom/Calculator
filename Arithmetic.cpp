@@ -86,7 +86,6 @@ void Arithmetic::CopyOther(const Arithmetic& other)
 Arithmetic::Arithmetic(const std::string& str) : tokens{ str }
 {
 	GenerationPostForm();
-	Calculation();
 }
 Arithmetic::Arithmetic(const Arithmetic& other) { CopyOther(other); }
 
@@ -108,7 +107,7 @@ double Arithmetic::GetResult() const noexcept { return result; }
 double Arithmetic::GetValVar(const std::string& name)
 {
 	if (tableVariable.find(name) == tableVariable.end())
-		throw - 2;
+		throw std::logic_error{ "Данный элемент отсутсвует" };
 
 	return tableVariable[name];
 }
@@ -128,7 +127,7 @@ const std::map<std::string, double>& Arithmetic::GetTableVar() const noexcept
 void Arithmetic::SetValVar(std::string name, double value)
 {
 	if (tableVariable.find(name) == tableVariable.end())
-		throw - 2;
+		throw std::logic_error{"Данный элемент отсутсвует"};
 
 	tableVariable[name] = value;
 }
@@ -180,7 +179,14 @@ void Arithmetic::Calculation()
 				if (token.name == "+") stVariable.push(left + right);
 				else if (token.name == "-") stVariable.push(left - right);
 				else if (token.name == "*") stVariable.push(left * right);
-				else if (token.name == "/") stVariable.push(left / right);
+				else if (token.name == "/")
+				{
+					// Выбрасываем исключение, если происходит деление на ноль
+					if (right == 0)
+						throw ExceptionRecord{ CodeError::ZERO_DIVISION, "Деление на ноль" };
+
+					stVariable.push(left / right);
+				}
 				else stVariable.push(pow(left, right));
 
 				left = 0;
