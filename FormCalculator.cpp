@@ -50,7 +50,7 @@ System::Void Calculator::FormCalculator::textBoxSrcStr_TextChanged(System::Objec
 	clearTable();
 	clearPolStr();
 	clearResult();
-
+	
 
 	if (textBoxSrcStr->Text == "")
 	{
@@ -178,6 +178,7 @@ System::Void Calculator::FormCalculator::buttonClear_Click(System::Object^ sende
 	clearSrcStr();
 	clearPolStr();
 	clearTable();
+	clearResult();
 
 	groupBoxTableVar->Enabled = false;
 	groupBoxResults->Enabled = false;

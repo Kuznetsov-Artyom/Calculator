@@ -118,8 +118,8 @@ void Record::CheckingCorrect()
 		{
 			// Выбрасываем исключение, если идут 2 операнда подряд
 			if (flagVarConst)
-				throw ExceptionRecord{ CodeError::NO_OPERATOR, "Отсутсвует оператор" };
-
+				throw ExceptionRecord{ CodeError::NO_OPERATOR, "Отсутствует оператор" };
+			
 			flagVarConst = true;
 			flagOperation = false;
 
@@ -128,12 +128,12 @@ void Record::CheckingCorrect()
 		{
 			// Выбрасываем исключение, если последняя лексема операция
 			if (flagOperation || i == tokens.size() - 1)
-				throw ExceptionRecord{ CodeError::NO_OPERAND, "Отсутсвует операнд" };
+				throw ExceptionRecord{ CodeError::NO_OPERAND, "Отсутствует операнд" };
 
 			// Выбрасываем исключение, если отсутсвует операнд в нач. выражения или после откр. скобки 
 			if (tokens[i].name == "*" || tokens[i].name == "/" || tokens[i].name == "^")
 				if (i == 0 || tokens[i - 1].type == TypeToken::OPEN_BRACKET)
-					throw ExceptionRecord{ CodeError::NO_OPERAND, "Отсутсвует операнд" };
+					throw ExceptionRecord{ CodeError::NO_OPERAND, "Отсутствует операнд" };
 
 			flagOperation = true;
 			flagVarConst = false;
@@ -143,7 +143,7 @@ void Record::CheckingCorrect()
 		{
 			// Выбрасываем исключение, если отсутсвует оператор между операндом и откр. скобкой
 			if (tokens[i].type == TypeToken::OPEN_BRACKET && flagVarConst)
-				throw ExceptionRecord{ CodeError::NO_OPERATOR, "Отсутсвует оператор" };
+				throw ExceptionRecord{ CodeError::NO_OPERATOR, "Отсутствует оператор" };
 
 			if (tokens[i].type == TypeToken::CLOSE_BRACKET)
 			{
@@ -153,7 +153,7 @@ void Record::CheckingCorrect()
 
 				// Выбрасываем исключение, если отсутсвует операнд перед закр. скобкой
 				else if (flagOperation)
-					throw ExceptionRecord{ CodeError::NO_OPERAND, "Отсутсвует операнд" };
+					throw ExceptionRecord{ CodeError::NO_OPERAND, "Отсутствует операнд" };
 			}
 
 			flagVarConst = false;
