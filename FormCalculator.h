@@ -310,7 +310,7 @@ namespace Calculator {
 			this->MaximizeBox = false;
 			this->Name = L"FormCalculator";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Reverse Polish Notation";
+			this->Text = L"Calculator";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewTableVar))->EndInit();
 			this->groupBoxWorkSpace->ResumeLayout(false);
 			this->groupBoxWorkSpace->PerformLayout();
