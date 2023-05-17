@@ -61,6 +61,12 @@ namespace Calculator {
 	private: System::Windows::Forms::GroupBox^ groupBoxResults;
 	private: System::Windows::Forms::Button^ buttonClear;
 
+	private: System::Windows::Forms::ToolTip^ toolTipButtonCreateTable;
+	private: System::Windows::Forms::ToolTip^ toolTipButtonCalculate;
+	private: System::Windows::Forms::ToolTip^ toolTipButtonClear;
+
+	private: System::ComponentModel::IContainer^ components;
+
 
 
 
@@ -80,7 +86,7 @@ namespace Calculator {
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -89,6 +95,7 @@ namespace Calculator {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FormCalculator::typeid));
 			this->labelSrcStr = (gcnew System::Windows::Forms::Label());
 			this->textBoxSrcStr = (gcnew System::Windows::Forms::TextBox());
@@ -103,6 +110,9 @@ namespace Calculator {
 			this->groupBoxTableVar = (gcnew System::Windows::Forms::GroupBox());
 			this->groupBoxResults = (gcnew System::Windows::Forms::GroupBox());
 			this->buttonClear = (gcnew System::Windows::Forms::Button());
+			this->toolTipButtonCreateTable = (gcnew System::Windows::Forms::ToolTip(this->components));
+			this->toolTipButtonCalculate = (gcnew System::Windows::Forms::ToolTip(this->components));
+			this->toolTipButtonClear = (gcnew System::Windows::Forms::ToolTip(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewTableVar))->BeginInit();
 			this->groupBoxWorkSpace->SuspendLayout();
 			this->groupBoxTableVar->SuspendLayout();
@@ -209,6 +219,7 @@ namespace Calculator {
 			this->buttonCalculate->TabIndex = 7;
 			this->buttonCalculate->TabStop = false;
 			this->buttonCalculate->Text = L"Calculate";
+			this->toolTipButtonCalculate->SetToolTip(this->buttonCalculate, L"The calculation of the entered expression will be performed");
 			this->buttonCalculate->UseVisualStyleBackColor = true;
 			this->buttonCalculate->Click += gcnew System::EventHandler(this, &FormCalculator::buttonCalculate_Click);
 			// 
@@ -238,6 +249,8 @@ namespace Calculator {
 			this->buttonGenTable->TabIndex = 8;
 			this->buttonGenTable->TabStop = false;
 			this->buttonGenTable->Text = L"Create table";
+			this->toolTipButtonCreateTable->SetToolTip(this->buttonGenTable, L"After clicking, it will generate a table of variables and constants of the entere"
+				L"d expression");
 			this->buttonGenTable->UseVisualStyleBackColor = true;
 			this->buttonGenTable->Click += gcnew System::EventHandler(this, &FormCalculator::buttonGenTable_Click);
 			// 
@@ -279,6 +292,7 @@ namespace Calculator {
 			this->buttonClear->TabIndex = 9;
 			this->buttonClear->TabStop = false;
 			this->buttonClear->Text = L"Clear";
+			this->toolTipButtonClear->SetToolTip(this->buttonClear, L"Returns the program to its start state");
 			this->buttonClear->UseVisualStyleBackColor = true;
 			this->buttonClear->Click += gcnew System::EventHandler(this, &FormCalculator::buttonClear_Click);
 			// 
