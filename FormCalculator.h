@@ -112,13 +112,13 @@ namespace Calculator {
 			// labelSrcStr
 			// 
 			this->labelSrcStr->AutoSize = true;
-			this->labelSrcStr->Font = (gcnew System::Drawing::Font(L"Tahoma", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->labelSrcStr->Font = (gcnew System::Drawing::Font(L"Tahoma", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->labelSrcStr->Location = System::Drawing::Point(13, 26);
+			this->labelSrcStr->Location = System::Drawing::Point(13, 22);
 			this->labelSrcStr->Name = L"labelSrcStr";
-			this->labelSrcStr->Size = System::Drawing::Size(238, 28);
+			this->labelSrcStr->Size = System::Drawing::Size(214, 30);
 			this->labelSrcStr->TabIndex = 0;
-			this->labelSrcStr->Text = L"Исходное выражение";
+			this->labelSrcStr->Text = L"Source expression";
 			// 
 			// textBoxSrcStr
 			// 
@@ -146,13 +146,13 @@ namespace Calculator {
 			// labelPolStr
 			// 
 			this->labelPolStr->AutoSize = true;
-			this->labelPolStr->Font = (gcnew System::Drawing::Font(L"Tahoma", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->labelPolStr->Font = (gcnew System::Drawing::Font(L"Tahoma", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->labelPolStr->Location = System::Drawing::Point(13, 28);
+			this->labelPolStr->Location = System::Drawing::Point(13, 26);
 			this->labelPolStr->Name = L"labelPolStr";
-			this->labelPolStr->Size = System::Drawing::Size(296, 28);
+			this->labelPolStr->Size = System::Drawing::Size(275, 30);
 			this->labelPolStr->TabIndex = 2;
-			this->labelPolStr->Text = L"Обратная польская запись";
+			this->labelPolStr->Text = L"Reverse Polish Notation";
 			// 
 			// textBoxResult
 			// 
@@ -170,13 +170,13 @@ namespace Calculator {
 			// labelResult
 			// 
 			this->labelResult->AutoSize = true;
-			this->labelResult->Font = (gcnew System::Drawing::Font(L"Tahoma", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->labelResult->Font = (gcnew System::Drawing::Font(L"Tahoma", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->labelResult->Location = System::Drawing::Point(13, 124);
+			this->labelResult->Location = System::Drawing::Point(13, 122);
 			this->labelResult->Name = L"labelResult";
-			this->labelResult->Size = System::Drawing::Size(252, 28);
+			this->labelResult->Size = System::Drawing::Size(203, 30);
 			this->labelResult->TabIndex = 4;
-			this->labelResult->Text = L"Результат вычисления";
+			this->labelResult->Text = L"Calculation result";
 			// 
 			// dataGridViewTableVar
 			// 
@@ -208,7 +208,7 @@ namespace Calculator {
 			this->buttonCalculate->Size = System::Drawing::Size(257, 60);
 			this->buttonCalculate->TabIndex = 7;
 			this->buttonCalculate->TabStop = false;
-			this->buttonCalculate->Text = L"Вычислить";
+			this->buttonCalculate->Text = L"Calculate";
 			this->buttonCalculate->UseVisualStyleBackColor = true;
 			this->buttonCalculate->Click += gcnew System::EventHandler(this, &FormCalculator::buttonCalculate_Click);
 			// 
@@ -237,7 +237,7 @@ namespace Calculator {
 			this->buttonGenTable->Size = System::Drawing::Size(257, 60);
 			this->buttonGenTable->TabIndex = 8;
 			this->buttonGenTable->TabStop = false;
-			this->buttonGenTable->Text = L"Создать таблицу";
+			this->buttonGenTable->Text = L"Create table";
 			this->buttonGenTable->UseVisualStyleBackColor = true;
 			this->buttonGenTable->Click += gcnew System::EventHandler(this, &FormCalculator::buttonGenTable_Click);
 			// 
@@ -252,7 +252,7 @@ namespace Calculator {
 			this->groupBoxTableVar->Size = System::Drawing::Size(266, 411);
 			this->groupBoxTableVar->TabIndex = 9;
 			this->groupBoxTableVar->TabStop = false;
-			this->groupBoxTableVar->Text = L"Таблица переменных";
+			this->groupBoxTableVar->Text = L"Table of variables";
 			// 
 			// groupBoxResults
 			// 
@@ -278,7 +278,7 @@ namespace Calculator {
 			this->buttonClear->Size = System::Drawing::Size(257, 60);
 			this->buttonClear->TabIndex = 9;
 			this->buttonClear->TabStop = false;
-			this->buttonClear->Text = L"Очистить";
+			this->buttonClear->Text = L"Clear";
 			this->buttonClear->UseVisualStyleBackColor = true;
 			this->buttonClear->Click += gcnew System::EventHandler(this, &FormCalculator::buttonClear_Click);
 			// 
@@ -296,7 +296,7 @@ namespace Calculator {
 			this->MaximizeBox = false;
 			this->Name = L"FormCalculator";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Калькулятор";
+			this->Text = L"Reverse Polish Notation";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewTableVar))->EndInit();
 			this->groupBoxWorkSpace->ResumeLayout(false);
 			this->groupBoxWorkSpace->PerformLayout();

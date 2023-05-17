@@ -115,8 +115,8 @@ System::Void Calculator::FormCalculator::buttonGenTable_Click(System::Object^ se
 	}
 	catch (const ExceptionRecord& ex)
 	{
-		MessageBox::Show(gcnew String((std::string("Код ошибки: ") + std::to_string(ex.GetCodeError()) + '\n' + std::string(ex.what())).c_str()),
-			"Ошибка!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		MessageBox::Show(gcnew String((std::string("Code error: ") + std::to_string(ex.GetCodeError()) + '\n' + std::string(ex.what())).c_str()),
+			"Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
 
 	buttonGenTable->Enabled = false;
