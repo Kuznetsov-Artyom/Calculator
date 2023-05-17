@@ -3,42 +3,12 @@
 
 
 #include "Token.hpp"
-#include <stdexcept>
-
-
-// Перечисление с кодами возможных ошибок
-enum class CodeError
-{
-	DEFAULT = 0,
-	EMPTY_EXPRESSION = -1,
-	TYPE_UNDEFINED = -2,
-	INVALID_PARENTHESES = -3,
-	NO_OPERATOR = -4,
-	NO_OPERAND = -5,
-	EMPTY_PARENTHESES = -6,
-	ZERO_DIVISION = -7,
-};
-
-// Класс исключений для класса Record
-class ExceptionRecord : public std::exception
-{
-
-private:
-	CodeError code = CodeError::DEFAULT;
-
-public:
-	ExceptionRecord(CodeError codeError, const char* msgError) : exception{ msgError }
-	{
-		code = codeError;
-	}
-
-	int GetCodeError() const noexcept { return static_cast<int>(code); };
-};
+#include "ExceptionRecord.hpp"
 
 
 
 
-// Проверяет на корректность круглые скобки
+// Checks for the correctness of parentheses
 bool CheckingParentheses(const std::string& str);
 
 
@@ -51,20 +21,18 @@ private:
 	std::vector<std::string> strTokens;
 	std::vector<Token> tokens{};
 
-private:
-	// +-+-+-+-+-+-+-+-+ Приватные методы +-+-+-+-+-+-+-+-+
-
-	// Разделяет исходную строку на лексемы
+private:	
+	// Splits the source string into tokens
 	void SplitOnTokens(const std::string& str);
 
-	// Определяет типы лексем
+	// Defines the types of tokens
 	void DefiningTypes();
 
-	// Проверяет корректность введенного выражения
+	// Checks the correctness of the entered expression
 	void CheckingCorrect();
 
 public:
-	// +-+-+-+-+-+-+-+-+ Конструкторы +-+-+-+-+-+-+-+-+
+	// +-+-+-+-+-+-+-+-+ Constructors +-+-+-+-+-+-+-+-+
 
 	Record() {}
 	Record(const std::string& str);
@@ -72,25 +40,22 @@ public:
 
 
 
-	// +-+-+-+-+-+-+-+-+ Методы (геттеры) +-+-+-+-+-+-+-+-+
-
-	// Возвращает количество лексем в записи
+	// +-+-+-+-+-+-+-+-+ Methods (getters) +-+-+-+-+-+-+-+-+
+	 
+	// Returns the number of tokens in the record
 	size_t GetCount() const noexcept;
 
-	// Возвращает исходную переданную строку
+	// Returns the original passed string
 	std::string  GetSrcStr() const noexcept;
 
 
 
 
-	// +-+-+-+-+-+-+-+-+ Операторы +-+-+-+-+-+-+-+-+
+	// +-+-+-+-+-+-+-+-+ Operators +-+-+-+-+-+-+-+-+
 
 	Record& operator = (const Record& other);
 	Record& operator = (const std::string& str);
 	Token& operator [] (const size_t& pos);
 };
-
-
-
 
 #endif // RECORD_HPP

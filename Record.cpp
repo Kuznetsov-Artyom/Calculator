@@ -2,7 +2,7 @@
 
 
 
-// Проверяет на корректность круглые скобки
+// Checks for the correctness of parentheses
 bool CheckingParentheses(const std::string& str)
 {
 	int result = 0;
@@ -19,9 +19,8 @@ bool CheckingParentheses(const std::string& str)
 
 
 
-// +-+-+-+-+-+-+-+-+ Приватные методы +-+-+-+-+-+-+-+-+
 
-// Разделяет исходную строку на лексемы
+// Splits the source string into tokens
 void Record::SplitOnTokens(const std::string& str)
 {
 	std::string current;
@@ -66,48 +65,48 @@ void Record::SplitOnTokens(const std::string& str)
 	if (current.size()) strTokens.emplace_back(current);
 }
 
-// Определяет типы лексем
+// Defines the types of tokens
 void Record::DefiningTypes()
 {
 	for (auto& token : strTokens)
 	{
-		// Проверка на тип CONST
+		// Checking for the CONST type
 		if (IsConst(token))
 		{
 			tokens.emplace_back(Token(TypeToken::CONST, token, std::atof(token.c_str())));
 		}
-		// Проверка на тип VARIABLE
+		// Checking for the VARIABLE type
 		else if (IsVariable(token))
 		{
 			tokens.emplace_back(Token(TypeToken::VARIABLE, token));
 		}
-		// Проверка на тип OPERATION
+		// OPERATION type check
 		else if (IsOperation(token))
 		{
 			int priority = (token == "+" || token == "-") ? 1 : ((token == "^") ? 3 : 2);
 			tokens.emplace_back(Token(TypeToken::OPERATION, token, static_cast<double>(priority)));
 		}
-		// Проверка на тип OPEN_BRACKET
+		// Checking for the OPEN_BRACKET type
 		else if (IsOpenBracket(token))
 		{
 			tokens.emplace_back(Token(TypeToken::OPEN_BRACKET, token));
 		}
-		// Проверка на тип CLOSE_BRACKET
+		// Checking for CLOSE_BRACKET type
 		else if (IsCloseBracket(token))
 		{
 			tokens.emplace_back(Token(TypeToken::CLOSE_BRACKET, token));
 		}
-		// Если тип не определен (некорректное значение)
-		else throw ExceptionRecord{ CodeError::TYPE_UNDEFINED, "Введена недопустимая лексема" };
+		// If the type is not defined (invalid value)
+		else throw ExceptionRecord{ CodeError::TYPE_UNDEFINED, "Invalid token entered" };
 	}
 }
 
-// Проверяет корректность введенного выражения
+// Checks the correctness of the entered expression
 void Record::CheckingCorrect()
 {
-	// Проверка на корректность круглых скобок
+	// Checking for the correctness of parentheses
 	if (!CheckingParentheses(GetSrcStr()))
-		throw ExceptionRecord{ CodeError::INVALID_PARENTHESES, "Круглые скобки введены некорректно" };
+		throw ExceptionRecord{ CodeError::INVALID_PARENTHESES, "Parentheses are entered incorrectly" };
 
 	bool flagVarConst = false;
 	bool flagOperation = false;
@@ -116,24 +115,24 @@ void Record::CheckingCorrect()
 	{
 		if (tokens[i].type == TypeToken::CONST || tokens[i].type == TypeToken::VARIABLE)
 		{
-			// Выбрасываем исключение, если идут 2 операнда подряд
+			// We throw an exception if there are 2 operands in a row
 			if (flagVarConst)
-				throw ExceptionRecord{ CodeError::NO_OPERATOR, "Отсутствует оператор" };
-			
+				throw ExceptionRecord{ CodeError::NO_OPERATOR, "Absent operator" };
+
 			flagVarConst = true;
 			flagOperation = false;
 
 		}
 		else if (tokens[i].type == TypeToken::OPERATION)
 		{
-			// Выбрасываем исключение, если последняя лексема операция
+			// We throw an exception if the last token is an operation
 			if (flagOperation || i == tokens.size() - 1)
-				throw ExceptionRecord{ CodeError::NO_OPERAND, "Отсутствует операнд" };
+				throw ExceptionRecord{ CodeError::NO_OPERAND, "Absent operand" };
 
-			// Выбрасываем исключение, если отсутсвует операнд в нач. выражения или после откр. скобки 
+			// We throw an exception if there is no operand in the beginning. expressions or after the opening parenthesis 
 			if (tokens[i].name == "*" || tokens[i].name == "/" || tokens[i].name == "^")
 				if (i == 0 || tokens[i - 1].type == TypeToken::OPEN_BRACKET)
-					throw ExceptionRecord{ CodeError::NO_OPERAND, "Отсутствует операнд" };
+					throw ExceptionRecord{ CodeError::NO_OPERAND, "Absent operand" };
 
 			flagOperation = true;
 			flagVarConst = false;
@@ -141,19 +140,19 @@ void Record::CheckingCorrect()
 		}
 		else
 		{
-			// Выбрасываем исключение, если отсутсвует оператор между операндом и откр. скобкой
+			// We throw an exception if there is no operator between the operands and the opening parenthesis
 			if (tokens[i].type == TypeToken::OPEN_BRACKET && flagVarConst)
-				throw ExceptionRecord{ CodeError::NO_OPERATOR, "Отсутствует оператор" };
+				throw ExceptionRecord{ CodeError::NO_OPERATOR, "Absent operator" };
 
 			if (tokens[i].type == TypeToken::CLOSE_BRACKET)
 			{
-				// Выбрасываем исключение, если были введены пустые круглые скобки
+				// We throw an exception if empty parentheses were entered
 				if (tokens[i - 1].type == TypeToken::OPEN_BRACKET)
-					throw ExceptionRecord{ CodeError::EMPTY_PARENTHESES, "Введены пустые круглые скобки" };
+					throw ExceptionRecord{ CodeError::EMPTY_PARENTHESES, "Empty parentheses are introduced" };
 
-				// Выбрасываем исключение, если отсутсвует операнд перед закр. скобкой
+				// We throw an exception if there is no operand before the closing parenthesis
 				else if (flagOperation)
-					throw ExceptionRecord{ CodeError::NO_OPERAND, "Отсутствует операнд" };
+					throw ExceptionRecord{ CodeError::NO_OPERAND, "Absent operand" };
 			}
 
 			flagVarConst = false;
@@ -165,13 +164,13 @@ void Record::CheckingCorrect()
 
 
 
-// +-+-+-+-+-+-+-+-+ Конструкторы +-+-+-+-+-+-+-+-+
+// +-+-+-+-+-+-+-+-+ Constructors +-+-+-+-+-+-+-+-+
 
 Record::Record(const std::string& str) : srcStr{ str }
 {
-	// Выбрасываем исключение, если выражение не было введено
+	// Throwing an exception if the expression was not entered
 	if (srcStr.size() == 0)
-		throw ExceptionRecord{ CodeError::EMPTY_EXPRESSION, "Выражение отсутсвует" };
+		throw ExceptionRecord{ CodeError::EMPTY_EXPRESSION, "Expression is missing" };
 
 	SplitOnTokens(str);
 	DefiningTypes();
@@ -183,18 +182,18 @@ Record::Record(const Record& other) : srcStr(other.srcStr), tokens{ other.tokens
 
 
 
-// +-+-+-+-+-+-+-+-+ Методы (геттеры) +-+-+-+-+-+-+-+-+
+// +-+-+-+-+-+-+-+-+ Methods (getters) +-+-+-+-+-+-+-+-+
 
-// Возвращает количество лексем в записи
+// Returns the number of tokens in the record
 size_t Record::GetCount() const noexcept { return tokens.size(); }
 
-// Возвращает исходную переданную строку
+// Returns the original passed string
 std::string  Record::GetSrcStr() const noexcept { return srcStr; }
 
 
 
 
-// +-+-+-+-+-+-+-+-+ Операторы +-+-+-+-+-+-+-+-+
+// +-+-+-+-+-+-+-+-+ Operators +-+-+-+-+-+-+-+-+
 
 Record& Record::operator = (const Record& other)
 {

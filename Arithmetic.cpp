@@ -1,27 +1,25 @@
 #include "Arithmetic.hpp"
 
 
-// +-+-+-+-+-+-+-+-+ Приватные методы +-+-+-+-+-+-+-+-+
-
-// Генерирует поствиксную запись лексем
+// Generates a postfix entry of tokens
 void Arithmetic::GenerationPostForm()
 {
 	std::stack<Token> stOperation;
 
 	for (size_t i = 0; i < tokens.GetCount(); ++i)
 	{
-		// Если лексема переменная или константа
+		// If the token is a variable or constant
 		if (tokens[i].type == TypeToken::VARIABLE || tokens[i].type == TypeToken::CONST)
 		{
 			postForm.emplace_back(tokens[i]);
 			tableVariable[tokens[i].name] = tokens[i].value;
 		}
-		// Если лексема открывающая скобка
+		// If the token is an opening bracket
 		else if (tokens[i].type == TypeToken::OPEN_BRACKET)
 		{
 			stOperation.push(tokens[i]);
 		}
-		// Если лексема закрывающая скобка
+		// If the token is a closing bracket
 		else if (tokens[i].type == TypeToken::CLOSE_BRACKET)
 		{
 			while (!(stOperation.top().type == TypeToken::OPEN_BRACKET))
@@ -32,10 +30,10 @@ void Arithmetic::GenerationPostForm()
 
 			stOperation.pop();
 		}
-		// Если лексема операция
+		// If the token is an operation
 		else if (tokens[i].type == TypeToken::OPERATION)
 		{
-			// Проверка на унарность
+			// Checking for unary
 			if (tokens[i].name == "+" || tokens[i].name == "-")
 			{
 				if (i == 0 || tokens[i - 1].type == TypeToken::OPEN_BRACKET)
@@ -68,7 +66,7 @@ void Arithmetic::GenerationPostForm()
 	polStr = polStr.substr(0, polStr.size() - 1);
 }
 
-// Копирует другой объект типа Arithmetic
+// Copies another object of the Arithmetic type
 void Arithmetic::CopyOther(const Arithmetic& other)
 {
 	tokens = other.tokens;
@@ -81,38 +79,39 @@ void Arithmetic::CopyOther(const Arithmetic& other)
 
 
 
-// +-+-+-+-+-+-+-+-+ Конструкторы +-+-+-+-+-+-+-+-+
+// +-+-+-+-+-+-+-+-+ Constructors +-+-+-+-+-+-+-+-+
 
 Arithmetic::Arithmetic(const std::string& str) : tokens{ str }
 {
 	GenerationPostForm();
+	Calculation();
 }
 Arithmetic::Arithmetic(const Arithmetic& other) { CopyOther(other); }
 
 
 
 
-// +-+-+-+-+-+-+-+-+ Методы (геттеры) +-+-+-+-+-+-+-+-+
+// +-+-+-+-+-+-+-+-+ Methods (getters) +-+-+-+-+-+-+-+-+
 
-// Возвращает "обратную польскую запись"
+// Returns "reverse Polish entry"
 std::string Arithmetic::GetPolStr() const noexcept { return polStr; }
 
-// Возвращает исходную переданную строку
+// Returns the original passed string
 std::string Arithmetic::GetSrcStr() const noexcept { return tokens.GetSrcStr(); }
 
-// Возвращает результат вычисления
+// Returns the result of the calculation
 double Arithmetic::GetResult() const noexcept { return result; }
 
-// Возвращает значение определенной переменной
+// Returns the value of a specific variable
 double Arithmetic::GetValVar(const std::string& name)
 {
 	if (tableVariable.find(name) == tableVariable.end())
-		throw std::logic_error{ "Данный элемент отсутсвует" };
+		throw std::logic_error{ "This element is missing" };
 
 	return tableVariable[name];
 }
 
-// Возвращает константкую ссылку на таблицу с переменными и их значениями
+// Returns a constant reference to a table with variables and their values
 const std::map<std::string, double>& Arithmetic::GetTableVar() const noexcept
 {
 	return tableVariable;
@@ -121,13 +120,13 @@ const std::map<std::string, double>& Arithmetic::GetTableVar() const noexcept
 
 
 
-// +-+-+-+-+-+-+-+-+ Сеттер +-+-+-+-+-+-+-+-+
+// +-+-+-+-+-+-+-+-+ Setter +-+-+-+-+-+-+-+-+
 
-// Изменяет значение переменной из таблицы
+// Changes the value of a variable from the table
 void Arithmetic::SetValVar(std::string name, double value)
 {
 	if (tableVariable.find(name) == tableVariable.end())
-		throw std::logic_error{"Данный элемент отсутсвует"};
+		throw std::logic_error{ "This element is missing" };
 
 	tableVariable[name] = value;
 }
@@ -135,9 +134,9 @@ void Arithmetic::SetValVar(std::string name, double value)
 
 
 
-// +-+-+-+-+-+-+-+-+ Прочие методы +-+-+-+-+-+-+-+-+
+// +-+-+-+-+-+-+-+-+ Other methods +-+-+-+-+-+-+-+-+
 
-// Вычисляет результат выражения
+// Calculates the result of the expression
 void Arithmetic::Calculation()
 {
 	std::stack<double> stVariable;
@@ -146,15 +145,15 @@ void Arithmetic::Calculation()
 
 	for (const auto& token : postForm)
 	{
-		// Если лексема переменная или константа
+		// If the token is a variable or constant
 		if (token.type == TypeToken::CONST || token.type == TypeToken::VARIABLE)
 		{
 			stVariable.push(tableVariable[token.name]);
 		}
-		// Если лексема операция
+		// If the token is an operation
 		else if (token.type == TypeToken::OPERATION)
 		{
-			// Если операция унарная
+			// If the operation is unary
 			if (token.arity == Arity::UNARY)
 			{
 				right = stVariable.top();
@@ -167,7 +166,7 @@ void Arithmetic::Calculation()
 
 				right = 0;
 			}
-			// Иначе операция бинарная
+			// Otherwise, the operation is binary
 			else
 			{
 				right = stVariable.top();
@@ -181,9 +180,9 @@ void Arithmetic::Calculation()
 				else if (token.name == "*") stVariable.push(left * right);
 				else if (token.name == "/")
 				{
-					// Выбрасываем исключение, если происходит деление на ноль
+					// We throw an exception if division by zero occurs
 					if (right == 0)
-						throw ExceptionRecord{ CodeError::ZERO_DIVISION, "Деление на ноль" };
+						throw ExceptionRecord{ CodeError::ZERO_DIVISION, "Division by zero" };
 
 					stVariable.push(left / right);
 				}
@@ -198,7 +197,7 @@ void Arithmetic::Calculation()
 	result = stVariable.top();
 }
 
-// Выводит переменные и их значения в консоль (логи)
+// Outputs variables and their values to the console (logs)
 void Arithmetic::ShowTableVar() const noexcept
 {
 	std::cout << "size tableVariable = " << tableVariable.size() << '\n';
@@ -211,7 +210,7 @@ void Arithmetic::ShowTableVar() const noexcept
 
 
 
-// +-+-+-+-+-+-+-+-+ Операторы +-+-+-+-+-+-+-+-+
+// +-+-+-+-+-+-+-+-+ Operators +-+-+-+-+-+-+-+-+
 
 Arithmetic& Arithmetic::operator = (const Arithmetic& other)
 {
